@@ -242,7 +242,7 @@ void Emit()
     p.active = true;
     p.position = _Position + (randomPosition * 0.05);
     p.velocity = _Velocity;
-    p.color = _Color;
+    p.color = _Color.rgb;
     p.scale = _Scale;
     p.baseScale = _BaseScale;
     p.time = 0;
