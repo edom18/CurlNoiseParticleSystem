@@ -7,16 +7,13 @@ namespace CurlNoiseParticleSystem.Emitter
     /// <summary>
     /// Emit normal curl noise particles.
     /// </summary>
-    public class NormalEmitter : MonoBehaviour
+    public class CurlParticleEmitter : MonoBehaviour
     {
         [SerializeField]
         private Color _particleColor = Color.white;
 
         [SerializeField]
-        private int _countPerParticle = 1;
-
-        [SerializeField]
-        private float _delay = 0.5f;
+        private int _countPerParticle = 500;
 
         private CurlParticle _particle;
 
@@ -31,33 +28,17 @@ namespace CurlNoiseParticleSystem.Emitter
             _particle.AutoRelease = false;
         }
 
-        private void Update()
-        {
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Emit();
-            }
-        }
-
-        private void OnGUI()
-        {
-            if (GUI.Button(new Rect(10, 10, 150, 30), "Normal Emit"))
-            {
-                Emit();
-            }
-        }
-
         /// <summary>
-        /// Normal emit particles.
+        /// Emit particles.
         /// </summary>
-        private void Emit()
+        public void Emit()
         {
             _particle.Emit(new ParticleParam
             {
                 Position = transform.position,
                 Delay = 0,
                 Color = ColorVec,
-            }, 500);
+            }, _countPerParticle);
         }
     }
 }

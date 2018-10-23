@@ -39,8 +39,9 @@ GameObject:
   - component: {fileID: 4041261533853896}
   - component: {fileID: 114339559776611054}
   - component: {fileID: 114499462158241144}
+  - component: {fileID: 114980523989573406}
   m_Layer: 0
-  m_Name: DistanceEmitter
+  m_Name: DistanceEmitterDemo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -52,8 +53,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1909465868275662}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0.031237364, y: 0.044984534, z: -0.04645735}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4252964728611140}
@@ -138,6 +139,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _raduis: 1
   _speed: 0.05
+--- !u!114 &114980523989573406
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1909465868275662}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 126c75b0868272a42b03613a940bd53d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!135 &135887963786981326
 SphereCollider:
   m_ObjectHideFlags: 1

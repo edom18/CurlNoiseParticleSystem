@@ -38,8 +38,9 @@ GameObject:
   m_Component:
   - component: {fileID: 4493108315899546}
   - component: {fileID: 114446398267586538}
+  - component: {fileID: 114392054677908832}
   m_Layer: 0
-  m_Name: ShapeEmitter
+  m_Name: ShapeEmitterDemo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -110,6 +111,17 @@ MeshFilter:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1349970952175810}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &114392054677908832
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1676794836621342}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fcc96e52dc5691b4998e1509ef417e8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114446398267586538
 MonoBehaviour:
   m_ObjectHideFlags: 1

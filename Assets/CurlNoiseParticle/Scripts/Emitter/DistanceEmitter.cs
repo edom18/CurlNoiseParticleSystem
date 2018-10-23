@@ -24,7 +24,11 @@ namespace CurlNoiseParticleSystem.Emitter
         private float _distanceThreshold = 0.1f;
         private float _sqrDistanceThreshold = 0;
 
-        private bool _needsCheck = false;
+        private bool _isPlaying = false;
+        public bool IsPlaying
+        {
+            get { return _isPlaying; }
+        }
 
         private CurlParticle _particle;
 
@@ -51,29 +55,12 @@ namespace CurlNoiseParticleSystem.Emitter
 
         private void Update()
         {
-            if (_needsCheck)
+            if (_isPlaying)
             {
                 EmitCheck();
             }
         }
 
-        private void OnGUI()
-        {
-            if (_needsCheck)
-            {
-                if (GUI.Button(new Rect(10, 100, 150, 30), "Distance Emit Stop"))
-                {
-                    _needsCheck = false;
-                }
-            }
-            else
-            {
-                if (GUI.Button(new Rect(10, 100, 150, 30), "Distance Emit Start"))
-                {
-                    _needsCheck = true;
-                }
-            }
-        }
         #endregion ### MonoBehaviour ###
 
         /// <summary>
@@ -81,7 +68,7 @@ namespace CurlNoiseParticleSystem.Emitter
         /// </summary>
         public void Play()
         {
-            _needsCheck = true;
+            _isPlaying = true;
         }
 
         /// <summary>
@@ -89,7 +76,7 @@ namespace CurlNoiseParticleSystem.Emitter
         /// </summary>
         public void Stop()
         {
-            _needsCheck = false;
+            _isPlaying = false;
         }
 
         /// <summary>

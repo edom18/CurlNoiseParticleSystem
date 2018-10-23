@@ -248,7 +248,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 282840810}
   m_LocalRotation: {x: 0.08809191, y: -0, z: -0, w: 0.9961124}
-  m_LocalPosition: {x: 0.031237364, y: 1.867, z: -1.302}
+  m_LocalPosition: {x: 0.031237364, y: 1.914, z: -1.564}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1347263771}
@@ -294,12 +294,8 @@ Prefab:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1909465868275662, guid: c5d16a84bdb9f47d582467902f54e723, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1909465868275662, guid: c5d16a84bdb9f47d582467902f54e723, type: 2}
       propertyPath: m_Name
-      value: DistanceEmitter
+      value: DistanceEmitterDemo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5d16a84bdb9f47d582467902f54e723, type: 2}
@@ -498,6 +494,10 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1676794836621342, guid: 11bd21b4f3cd87744befba523589b97d, type: 2}
+      propertyPath: m_Name
+      value: ShapeEmitterDemo
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 11bd21b4f3cd87744befba523589b97d, type: 2}
   m_IsPrefabParent: 0
@@ -580,20 +580,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 114261251427195204, guid: 655be8790a19a5342bab3e337cef4efc,
-        type: 2}
-      propertyPath: _particleColor.r
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114261251427195204, guid: 655be8790a19a5342bab3e337cef4efc,
-        type: 2}
-      propertyPath: _particleColor.g
-      value: 0.88965523
-      objectReference: {fileID: 0}
-    - target: {fileID: 114261251427195204, guid: 655be8790a19a5342bab3e337cef4efc,
-        type: 2}
-      propertyPath: _particleColor.b
-      value: 0
+    - target: {fileID: 1255480354288482, guid: 655be8790a19a5342bab3e337cef4efc, type: 2}
+      propertyPath: m_Name
+      value: CurlParticleEmitterDemo
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 655be8790a19a5342bab3e337cef4efc, type: 2}
