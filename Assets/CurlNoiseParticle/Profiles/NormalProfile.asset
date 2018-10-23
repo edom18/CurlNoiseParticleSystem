@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7613e3b47980a6d43aa279022464c948, type: 3}
-  m_Name: CurlParticleProfile
+  m_Name: NormalProfile
   m_EditorClassIdentifier: 
   CurlNoiseType: 0
   CurlNoiseIntencity: 0.115

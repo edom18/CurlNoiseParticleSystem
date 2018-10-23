@@ -9,29 +9,31 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 7613e3b47980a6d43aa279022464c948, type: 3}
-  m_Name: CurlParticleProfile 1
+  m_Name: FakeProfile
   m_EditorClassIdentifier: 
-  CurlNoiseType: 0
+  CurlNoiseType: 1
   CurlNoiseIntencity: 0.115
   ParticleColor: {r: 1, g: 1, b: 1, a: 1}
-  SpeedFactor: 0.5
+  SpeedFactor: 0.01
   NoiseScales:
+  - 0.01
+  - 0.07
+  - 0.05
   - 2
-  - 1
-  - 0.5
   NoiseGain:
-  - 1.5
   - 1
   - 0.5
-  PlumeBase: -0.2
-  PlumeHeight: 0.8
-  PlumeCeiling: 0.6
-  RingRadius: 0.1
-  RingMagnitude: 0.1
-  RingFalloff: 0.5
-  RingSpeed: 0.5
-  RingPerSecond: 0.1
-  RisingForce: {x: 3, y: 2, z: -5}
+  - 0.3
+  - 2
+  PlumeBase: -0.19
+  PlumeHeight: 0.37
+  PlumeCeiling: 0.22
+  RingRadius: 1
+  RingMagnitude: 5
+  RingFalloff: 0.7
+  RingSpeed: 0.3
+  RingPerSecond: 0.125
+  RisingForce: {x: 0, y: 0, z: -0.3}
   Seed: 100
   Octaves: 5
   Frequency: 5
