@@ -39,7 +39,7 @@ GameObject:
   - component: {fileID: 4493108315899546}
   - component: {fileID: 114446398267586538}
   m_Layer: 0
-  m_Name: ShapeCurlParticle
+  m_Name: ShapeEmitter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
