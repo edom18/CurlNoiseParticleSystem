@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CurlNoiseParticle
+namespace CurlNoiseParticleSystem
 {
     public class DistanceEmitter : MonoBehaviour
     {
@@ -21,18 +21,18 @@ namespace CurlNoiseParticle
         private float _distanceThreshold = 0.1f;
         private float _sqrDistanceThreshold = 0;
 
+        private bool _needsCheck = false;
+
         private CurlParticle _particle;
 
         private Vector3 _prevPos;
 
         private Vector3 ColorVec
         {
-            get
-            {
-                return new Vector3(_particleColor.r, _particleColor.g, _particleColor.b);
-            }
+            get { return new Vector3(_particleColor.r, _particleColor.g, _particleColor.b); }
         }
 
+        #region ### MonoBehaviour ###
         private void Start()
         {
             _particle = CurlParticleSystem.Instance.Get();
@@ -48,9 +48,50 @@ namespace CurlNoiseParticle
 
         private void Update()
         {
-            EmitCheck();
+            if (_needsCheck)
+            {
+                EmitCheck();
+            }
         }
 
+        private void OnGUI()
+        {
+            if (_needsCheck)
+            {
+                if (GUI.Button(new Rect(10, 100, 150, 30), "Distance Emit Stop"))
+                {
+                    _needsCheck = false;
+                }
+            }
+            else
+            {
+                if (GUI.Button(new Rect(10, 100, 150, 30), "Distance Emit Start"))
+                {
+                    _needsCheck = true;
+                }
+            }
+        }
+        #endregion ### MonoBehaviour ###
+
+        /// <summary>
+        /// Play particle system.
+        /// </summary>
+        public void Play()
+        {
+            _needsCheck = true;
+        }
+
+        /// <summary>
+        /// Stop particle system.
+        /// </summary>
+        public void Stop()
+        {
+            _needsCheck = false;
+        }
+
+        /// <summary>
+        /// Check emit particles.
+        /// </summary>
         private void EmitCheck()
         {
             if (_prevPos == default(Vector3))

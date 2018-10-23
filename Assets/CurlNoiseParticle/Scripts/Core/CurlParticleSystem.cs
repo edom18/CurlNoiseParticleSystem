@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CurlNoiseParticle
+namespace CurlNoiseParticleSystem
 {
     public class CurlParticleSystem : Singleton<CurlParticleSystem>
     {

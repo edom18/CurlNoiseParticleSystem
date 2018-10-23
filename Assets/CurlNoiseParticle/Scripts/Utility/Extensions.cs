@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using System.Collections;
 using System.IO;
 
-namespace CurlNoiseParticle
+namespace CurlNoiseParticleSystem
 {
     /// <summary>
     /// System.Actionの拡張

@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using UnityEngine;
-using CurlNoiseParticle.Utility;
+using CurlNoiseParticleSystem.Utility;
 
-namespace CurlNoiseParticle
+namespace CurlNoiseParticleSystem
 {
     public enum CurlNoiseType
     {
