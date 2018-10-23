@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CurlNoiseParticle
 {
-    public class ShapeCurlParticle : MonoBehaviour
+    public class ShapeEmitter : MonoBehaviour
     {
         [SerializeField]
         private MeshFilter _filter;

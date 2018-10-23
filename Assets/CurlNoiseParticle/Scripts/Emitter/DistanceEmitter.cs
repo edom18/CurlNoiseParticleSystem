@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace CurlNoiseParticle
 {
-    public class DistanceCurlParticle : MonoBehaviour
+    public class DistanceEmitter : MonoBehaviour
     {
         [SerializeField]
         #if UNITY_2017
