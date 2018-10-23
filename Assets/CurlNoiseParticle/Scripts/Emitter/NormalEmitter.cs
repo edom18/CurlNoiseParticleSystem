@@ -4,10 +4,10 @@ using UnityEngine;
 
 namespace CurlNoiseParticle
 {
-    public class ShapeEmitter : MonoBehaviour
+    public class NormalEmitter : MonoBehaviour
     {
         [SerializeField]
-        private MeshFilter _filter;
+        private Color _particleColor = Color.white;
 
         [SerializeField]
         private int _countPerParticle = 1;
@@ -17,6 +17,11 @@ namespace CurlNoiseParticle
 
         private CurlParticle _particle;
 
+        private Vector3 ColorVec
+        {
+            get { return new Vector3(_particleColor.r, _particleColor.g, _particleColor.b); }
+        }
+
         private void Start()
         {
             _particle = CurlParticleSystem.Instance.Get();
@@ -25,32 +30,31 @@ namespace CurlNoiseParticle
 
         private void Update()
         {
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.E))
             {
                 Emit();
-            }
-
-            if (Input.GetKeyDown(KeyCode.S))
-            {
-                _particle.Stop();
             }
         }
 
         private void OnGUI()
         {
-            if (GUI.Button(new Rect(10, 50, 150, 30), "Shape Emit"))
+            if (GUI.Button(new Rect(10, 10, 150, 30), "Normal Emit"))
             {
                 Emit();
             }
         }
 
         /// <summary>
-        /// Burst with particle param list.
+        /// Normal emit particles.
         /// </summary>
         private void Emit()
         {
-            CurlParticle particle = CurlParticleSystem.Instance.Get();
-            particle.EmitWithMesh(_filter, _countPerParticle, _delay);
+            _particle.Emit(new ParticleParam
+            {
+                Position = transform.position,
+                Delay = 0,
+                Color = ColorVec,
+            }, 500);
         }
     }
 }
