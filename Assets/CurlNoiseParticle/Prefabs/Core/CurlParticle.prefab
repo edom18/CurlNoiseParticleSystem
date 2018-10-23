@@ -59,6 +59,6 @@ MonoBehaviour:
   _mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
   _shader: {fileID: 4800000, guid: 1efe61abed89247448f61a99069d952b, type: 3}
   _computeShader: {fileID: 7200000, guid: 43bcbdb73d857ed4da036d0ec3736a4c, type: 3}
-  _curlParticleProfile: {fileID: 11400000, guid: 98ad9185eaab5d7448ed0982817e1fd5,
+  _curlParticleProfile: {fileID: 11400000, guid: 54560e7668ca71a4ca9eb227fe2da8b7,
     type: 2}
   _showGizmos: 1

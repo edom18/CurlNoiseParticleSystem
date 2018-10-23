@@ -268,6 +268,10 @@ Prefab:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 1909465868275662, guid: c5d16a84bdb9f47d582467902f54e723, type: 2}
+      propertyPath: m_Name
+      value: DistanceEmitter
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c5d16a84bdb9f47d582467902f54e723, type: 2}
   m_IsPrefabParent: 0
@@ -356,24 +360,9 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
-    - target: {fileID: 114446398267586538, guid: 11bd21b4f3cd87744befba523589b97d,
-        type: 2}
-      propertyPath: _particleColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114446398267586538, guid: 11bd21b4f3cd87744befba523589b97d,
-        type: 2}
-      propertyPath: _particleColor.g
-      value: 0.74905896
-      objectReference: {fileID: 0}
-    - target: {fileID: 114446398267586538, guid: 11bd21b4f3cd87744befba523589b97d,
-        type: 2}
-      propertyPath: _particleColor.b
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1349970952175810, guid: 11bd21b4f3cd87744befba523589b97d, type: 2}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 1676794836621342, guid: 11bd21b4f3cd87744befba523589b97d, type: 2}
+      propertyPath: m_Name
+      value: ShapeEmitter
       objectReference: {fileID: 0}
     - target: {fileID: 1676794836621342, guid: 11bd21b4f3cd87744befba523589b97d, type: 2}
       propertyPath: m_IsActive
