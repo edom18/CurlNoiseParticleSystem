@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7613e3b47980a6d43aa279022464c948, type: 3}
+  m_Name: CurlParticleProfile
+  m_EditorClassIdentifier: 
+  CurlNoiseType: 0
+  CurlNoiseIntencity: 0.115
+  ParticleColor: {r: 1, g: 1, b: 1, a: 1}
+  SpeedFactor: 0.1
+  NoiseScales:
+  - 0.5
+  - 0.3
+  - 0.2
+  NoiseGain:
+  - 1
+  - 0.5
+  - 0.3
+  PlumeBase: -0.2
+  PlumeHeight: 0.4
+  PlumeCeiling: 0.2
+  RingRadius: 1
+  RingMagnitude: 5
+  RingFalloff: 0.7
+  RingSpeed: 0.3
+  RingPerSecond: 0.125
+  RisingForce: {x: 0, y: 0, z: -0.3}
+  Seed: 100
+  Octaves: 5
+  Frequency: 5

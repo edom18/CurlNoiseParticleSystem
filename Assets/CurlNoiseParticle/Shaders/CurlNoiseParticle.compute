@@ -1,0 +1,253 @@
+﻿#pragma kernel Init
+#pragma kernel Stop
+#pragma kernel Emit
+#pragma kernel CurlNoiseMain
+
+#include "NoiseMath.cginc"
+
+StructuredBuffer<int> _P;
+RWTexture2D<float4> _Result;
+AppendStructuredBuffer<uint> _DeadList;
+ConsumeStructuredBuffer<uint> _ParticlePool;
+RWStructuredBuffer<Particle> _Particles;
+
+int _Octaves;
+bool _UseFake;
+
+float4 _SphereParam;
+
+float3 _NoiseScales;
+float3 _NoiseGain;
+float3 _RisingForce;
+
+float _Frequency;
+float _SpeedFactor;
+float _DeltaTime;
+float _CurlNoiseIntencity;
+
+float _Time;
+float _PlumeBase;
+float _PlumeHeight;
+float _PlumeCeiling;
+
+float _RingRadius;
+float _RingMagnitude;
+float _RingFalloff;
+float _RingSpeed;
+float _RingPerSecond;
+
+float _Delay;
+float _Scale;
+float _BaseScale;
+float _MinLifeTime;
+float _MaxLifeTime;
+float4 _Color;
+float3 _Position;
+float3 _Velocity;
+
+////////////////////////////////////////////////////////////
+///
+/// カールノイズのポテンシャル（ベクトル場）を得る
+///
+float3 SamplePotential(float3 pos, float time)
+{
+    float3 psi = float3(0, 0, 0);
+
+    // 高さに応じて乱流の度合いを変化させる（上にいくほど拡散するように）
+    float heightFactor = Ramp((pos.y - _PlumeBase) / _PlumeHeight);
+
+    for (int i = 0; i < 3; i++)
+    {
+        float3 s = pos / _NoiseScales[i];
+
+        float3 psi_i = Pnoise(s, _Octaves);
+        psi += psi_i * heightFactor * _NoiseGain[i];
+    }
+
+    psi += _RisingForce;
+
+    // ringの半径？
+    // XZ平面の中心からの半径？ RingRadius？
+    float rr = sqrt(pos.x * pos.x + pos.z * pos.z);
+    float temp = sqr(rr - _RingRadius) + sqr(rr + _RingRadius) + _RingFalloff;
+    float invSecond = 1.0 / _RingPerSecond;
+    float ringY = _PlumeCeiling;
+
+    // 「煙の柱（Plume）」の下端以下になるまで繰り返す
+    // ringYが_PlumeBase以下になるまで繰り返す。
+    // ringYの減少は、
+    // (_RingSpeed / _RingPerSecond）＝時間あたりの速度として計算する
+    while (ringY > _PlumeBase)
+    {
+        // ringの位置とパーティクルのYの差分
+        float ry = pos.y - ringY;
+
+        float b = temp + sqr(ry);
+        float rmag = _RingMagnitude / b;
+
+        float3 rpsi = rmag * _RisingForce;
+        psi += rpsi;
+
+        ringY -= _RingSpeed * invSecond;
+    }
+
+    return psi;
+}
+
+////////////////////////////////////////////////////////////
+///
+/// パーリンノイズで利用するノイズ関数
+///
+float Noise(float3 vec)
+{
+    int X = (int)floor(vec.x) & 255;
+    int Y = (int)floor(vec.y) & 255;
+    int Z = (int)floor(vec.z) & 255;
+
+    vec.x -= floor(vec.x);
+    vec.y -= floor(vec.y);
+    vec.z -= floor(vec.z);
+
+    float u = Fade(vec.x);
+    float v = Fade(vec.y);
+    float w = Fade(vec.z);
+
+    int A, AA, AB, B, BA, BB;
+
+    A = _P[X + 0] + Y; AA = _P[A] + Z; AB = _P[A + 1] + Z;
+    B = _P[X + 1] + Y; BA = _P[B] + Z; BB = _P[B + 1] + Z;
+
+    return Lerp(w, Lerp(v, Lerp(u, Grad(_P[AA + 0], vec.x + 0, vec.y + 0, vec.z + 0),
+                                   Grad(_P[BA + 0], vec.x - 1, vec.y + 0, vec.z + 0)),
+                           Lerp(u, Grad(_P[AB + 0], vec.x + 0, vec.y - 1, vec.z + 0),
+                                   Grad(_P[BB + 0], vec.x - 1, vec.y - 1, vec.z + 0))),
+                   Lerp(v, Lerp(u, Grad(_P[AA + 1], vec.x + 0, vec.y + 0, vec.z - 1),
+                                   Grad(_P[BA + 1], vec.x - 1, vec.y + 0, vec.z - 1)),
+                           Lerp(u, Grad(_P[AB + 1], vec.x + 0, vec.y - 1, vec.z - 1),
+                                   Grad(_P[BB + 1], vec.x - 1, vec.y - 1, vec.z - 1))));
+}
+
+
+////////////////////////////////////////////////////////////
+///
+/// カールノイズ本体
+/// ベクトル場に∇を掛けることでベクトル場を回転させる
+///
+float3 CurlNoise(Particle p)
+{
+    const float3 dx = float3(E, 0.0, 0.0);
+    const float3 dy = float3(0.0, E, 0.0);
+    const float3 dz = float3(0.0, 0.0, E);
+
+    float3 pos = p.position;
+
+    float3 p_x0 = SamplePotential(pos - dx, p.time);
+    float3 p_x1 = SamplePotential(pos + dx, p.time);
+    float3 p_y0 = SamplePotential(pos - dy, p.time);
+    float3 p_y1 = SamplePotential(pos + dy, p.time);
+    float3 p_z0 = SamplePotential(pos - dz, p.time);
+    float3 p_z1 = SamplePotential(pos + dz, p.time);
+
+    if (_UseFake)
+    {
+        return CurlNoiseRotFake(p_x0, p_x1, p_y0, p_y1, p_z0, p_z1);
+    }
+    else
+    {
+        return CurlNoiseRot(p_x0, p_x1, p_y0, p_y1, p_z0, p_z1);
+    }
+}
+
+////////////////////////////////////////////////////////////
+///
+/// カールノイズのカーネル関数
+///
+[numthreads(8, 1, 1)]
+void CurlNoiseMain(uint id : SV_DispatchThreadID)
+{
+    Particle p = _Particles[id];
+
+    if (p.active)
+    {
+        _Particles[id].delay -= _DeltaTime;
+        if (_Particles[id].delay > 0)
+        {
+            return;
+        }
+
+        float3 pos = p.position;
+
+        float3 velocity = CurlNoise(p);
+
+        p.velocity = velocity * _SpeedFactor * _CurlNoiseIntencity;
+        p.position += p.velocity * _DeltaTime;
+
+        p.time += _DeltaTime;
+        p.scale = 1.0 - (p.time / p.lifeTime);
+
+        if (p.time >= p.lifeTime)
+        {
+            p.active = false;
+            _DeadList.Append(id);
+            p.scale = 0;
+        }
+    }
+    else
+    {
+        p.scale = 0;
+    }
+
+    _Particles[id] = p;
+}
+
+////////////////////////////////////////////////////////////
+///
+/// 初期化処理のカーネル関数
+///
+[numthreads(8, 1, 1)]
+void Init(uint id : SV_DispatchThreadID)
+{
+    _Particles[id].active = false;
+    _DeadList.Append(id);
+}
+
+////////////////////////////////////////////////////////////
+///
+/// パーティクルを停止させるカーネル関数
+///
+[numthreads(8, 1, 1)]
+void Stop(uint id : SV_DispatchThreadID)
+{
+    if (_Particles[id].active)
+    {
+        _Particles[id].active = false;
+        _DeadList.Append(id);
+    }
+}
+
+////////////////////////////////////////////////////////////
+///
+/// パーティクルをエミットさせるカーネル関数
+///
+[numthreads(8, 1, 1)]
+void Emit()
+{
+    uint id = _ParticlePool.Consume();
+
+    float2 seed = float2(id + 1, id + 2);
+    float3 randomPosition = rand3(seed);
+
+    Particle p = _Particles[id];
+
+    p.active = true;
+    p.position = _Position + (randomPosition * 0.05);
+    p.velocity = _Velocity;
+    p.color = _Color;
+    p.scale = _Scale;
+    p.baseScale = _BaseScale;
+    p.time = 0;
+    p.lifeTime = randRange(seed + 1, _MinLifeTime, _MaxLifeTime);
+    p.delay = _Delay;
+
+    _Particles[id] = p;
+}
