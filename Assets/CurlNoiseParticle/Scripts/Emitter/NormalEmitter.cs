@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CurlNoiseParticleSystem
+namespace CurlNoiseParticleSystem.Emitter
 {
+    /// <summary>
+    /// Emit normal curl noise particles.
+    /// </summary>
     public class NormalEmitter : MonoBehaviour
     {
         [SerializeField]

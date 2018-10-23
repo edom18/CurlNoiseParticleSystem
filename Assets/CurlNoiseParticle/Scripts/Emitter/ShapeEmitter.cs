@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CurlNoiseParticleSystem
+namespace CurlNoiseParticleSystem.Emitter
 {
+    /// <summary>
+    /// Emit particle from shape surface.
+    /// </summary>
     public class ShapeEmitter : MonoBehaviour
     {
         [SerializeField]

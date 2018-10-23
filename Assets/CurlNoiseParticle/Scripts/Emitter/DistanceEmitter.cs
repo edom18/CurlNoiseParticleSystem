@@ -2,8 +2,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace CurlNoiseParticleSystem
+namespace CurlNoiseParticleSystem.Emitter
 {
+    /// <summary>
+    /// Emit particles with distance.
+    /// </summary>
     public class DistanceEmitter : MonoBehaviour
     {
         [SerializeField]
