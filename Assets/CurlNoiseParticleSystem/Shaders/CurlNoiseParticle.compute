@@ -167,7 +167,7 @@ void CurlNoiseMain(uint id : SV_DispatchThreadID)
 {
     Particle p = _Particles[id];
 
-    if (p.active)
+    if (p.active == 1)
     {
         _Particles[id].delay -= _DeltaTime;
         if (_Particles[id].delay > 0)
@@ -187,7 +187,7 @@ void CurlNoiseMain(uint id : SV_DispatchThreadID)
 
         if (p.time >= p.lifeTime)
         {
-            p.active = false;
+            p.active = 0;
             _DeadList.Append(id);
             p.scale = 0;
         }
@@ -207,7 +207,7 @@ void CurlNoiseMain(uint id : SV_DispatchThreadID)
 [numthreads(8, 1, 1)]
 void Init(uint id : SV_DispatchThreadID)
 {
-    _Particles[id].active = false;
+    _Particles[id].active = 0;
     _DeadList.Append(id);
 }
 
@@ -218,9 +218,9 @@ void Init(uint id : SV_DispatchThreadID)
 [numthreads(8, 1, 1)]
 void Stop(uint id : SV_DispatchThreadID)
 {
-    if (_Particles[id].active)
+    if (_Particles[id].active == 1)
     {
-        _Particles[id].active = false;
+        _Particles[id].active = 0;
         _DeadList.Append(id);
     }
 }
@@ -239,7 +239,7 @@ void Emit()
 
     Particle p = _Particles[id];
 
-    p.active = true;
+    p.active = 1;
     p.position = _Position + (randomPosition * 0.05);
     p.velocity = _Velocity;
     p.color = _Color.rgb;

@@ -18,7 +18,7 @@ namespace CurlNoiseParticleSystem
     public struct Particle
     {
         public int id;
-        public bool active;
+        public int active;
         public Vector3 position;
         public Vector3 velocity;
         public Vector3 color;
@@ -477,7 +477,7 @@ namespace CurlNoiseParticleSystem
                 Particle p = new Particle
                 {
                     id = i,
-                    active = true,
+                    active = 1,
                     position = Vector3.zero,
                     color = colorVec,
                     scale = 1.0f,
@@ -508,7 +508,7 @@ namespace CurlNoiseParticleSystem
 
                 if (pidx < paramList.Length)
                 {
-                    _particles[i].active = true;
+                    _particles[i].active = 1;
                     _particles[i].position = CurlParticleUtility.GetRandomVector(paramList[pidx].Position, _randomRange);
                     _particles[i].delay = paramList[pidx].Delay;
                     _particles[i].color = paramList[pidx].Color;
@@ -525,7 +525,7 @@ namespace CurlNoiseParticleSystem
                 }
                 else
                 {
-                    _particles[i].active = false;
+                    _particles[i].active = 0;
                     _particles[i].liefTime = 0;
                 }
             }
